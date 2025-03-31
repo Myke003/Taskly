@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request, redirect, url_for
+from app.models import db, Task
 
 routes = Blueprint('routes', __name__, template_folder='templates')
 
@@ -16,19 +17,23 @@ def register():
 
 @routes.route('/')
 def toDoApp():
-  return render_template('layout.j2')
+  tasks = Task.query.all()
+  return render_template('layout.j2', tasks=tasks)
 
 
 # Crud Routes
 
-@routes.route('/add')
+@routes.route('/add', methods=['POST'])
 def add():
-  return 'add task'
+  name = request.form['name']
+  new_task = Task(name=name)
+  db.session.add(new_task)
+  db.session.commit()
+  return redirect(url_for('routes.toDoApp'))
 
-@routes.route('/update')
-def update():
-  return 'update'
-
-@routes.route('/delete')
-def delete():
-  return 'delete'
+@routes.route('/delete/<int:id>', methods=['GET', 'POST'])
+def delete(id):
+  task = Task.query.get(id)
+  db.session.delete(task)
+  db.session.commit()
+  return redirect(url_for('routes.toDoApp'))
