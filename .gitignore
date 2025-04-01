@@ -1,1 +1,35 @@
+# Archivos de configuración y entornos virtuales
 venv/
+.env
+*.pyc
+__pycache__/
+instance/
+
+# Bases de datos SQLite
+*.sqlite3
+*.db
+
+# Logs y caché
+logs/
+*.log
+*.out
+*.err
+
+# Archivos de compilación y dependencias
+*.egg-info/
+dist/
+build/
+
+# Archivos de IDE y editores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Archivos de despliegue y Docker
+*.dockerignore
+docker-compose.override.yml
+
+# Node (si usas frontend con npm)
+node_modules/
+package-lock.json
