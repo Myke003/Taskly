@@ -2,7 +2,7 @@ from flask import Flask
 from app.routes import routes
 from app.models import db
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='app/static', template_folder='app/templates')
 app.register_blueprint(routes)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root@localhost/taskly'
