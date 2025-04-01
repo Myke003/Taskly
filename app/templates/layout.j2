@@ -1,24 +1,28 @@
 {% extends "base.j2" %}
 
-{% block title%} Taslky{% endblock  %}
+{% block title%} Taslky {% endblock  %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/layout.css')}}">
+{% endblock %}
 
 {% block body %}
 <h1>Taskly</h1>
 <div class="input-div">
-  <form action="{{ url_for('routes.add')}}" method="post">
-    <input type="text" name="name" placeholder="Agregar Tarea" required>
-    <button>Agregar</button>
+  <form class="task-form" action="{{ url_for('routes.add')}}" method="post">
+    <input class="input-form" type="text" name="name" placeholder="Agregar Tarea" required>
+    <button class="form-btn">Agregar</button>
   </form>
 </div>
 <div class="task-list">
   <ul>
     {% for task in tasks%}
-      <li>
+      <li class="taks-li">
         {{task.name}}
         <a href="{{url_for('routes.delete', id=task.id)}}">🗑</a>
       </li>
     {% endfor %}
   </ul>
-
+  
 </div>
 {% endblock  %}
